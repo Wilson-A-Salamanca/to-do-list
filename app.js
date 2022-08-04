@@ -3,6 +3,8 @@ const addText = document.querySelector(".btn");
 const container = document.getElementById("container__tasks");
 const containerCompletedTask = document.getElementById("container__completed");
 
+
+//task js
 let tasks = [];
 let counter = 0;
 
@@ -25,7 +27,7 @@ text.addEventListener("change", (e) => {
 
 
 //add task to the ul with a li tag 
-addText.addEventListener("click", (e) => {
+addText.addEventListener("click", () => {
     //HTML
     if(task !== ""){
         let containerTask = document.createElement("li");
@@ -33,9 +35,9 @@ addText.addEventListener("click", (e) => {
         taskContent += `     
             <input type="checkbox" >
             <button>delete</button>`;
-
-
-        containerTask.setAttribute("id", cont++)
+        
+        containerTask.setAttribute("contentEditable", "");
+        containerTask.setAttribute("id", cont++);
         containerTask.innerHTML = task + taskContent;
         container.appendChild(containerTask);
         
@@ -47,29 +49,18 @@ addText.addEventListener("click", (e) => {
     }
 });
 
-//delete task of the ul 
-
-
+//delete task
 
 container.addEventListener('click', (e) => {
     //console.log(e.target.style.visibility)
+    
    if(e.target.nodeName === "BUTTON"){
         document.getElementById(e.target.parentNode.id).remove();
         
-        const filterId = tasks.map((item)=>{ //filter
-            return item.id 
+        tasks = tasks.filter((item)=>{ //filter
+            return item.id != e.target.parentNode.id;
         });
 
-        console.log(filterId)
-       /*
-        //if(tasks === e.target.parentNode.id)
-        tasks.splice(e.target.parentNode.id, 1);
-        console.log(tasks);
-        console.log(e.target.parentNode.id) */
+        console.log(tasks)       
     }
-    //for(let i = 0 ; i <= tasks.length; i++){
-      //  console.log(tasks[i])
-    //}
 })
-
-
